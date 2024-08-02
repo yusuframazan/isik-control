@@ -31,6 +31,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
 
     <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
     <script>
@@ -50,45 +51,58 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // Işık durumunu güncelleme fonksiyonu
-        function updateLightStatus(status) {
-            const lightRef = db.ref('lightStatus');
-            lightRef.set(status)
-                .then(() => {
-                    console.log('Işık durumu güncellendi:', status);
-                })
-                .catch((error) => {
-                    console.error('Işık durumu güncellenirken bir hata oluştu:', error);
+        // Firebase Authentication
+        firebase.auth().signInAnonymously().catch(function(error) {
+            console.log("Authentication failed:", error);
+        });
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log("Authenticated as:", user.uid);
+
+                // Işık durumunu güncelleme fonksiyonu
+                function updateLightStatus(status) {
+                    const lightRef = db.ref('lightStatus');
+                    lightRef.set(status)
+                        .then(() => {
+                            console.log('Işık durumu güncellendi:', status);
+                        })
+                        .catch((error) => {
+                            console.error('Işık durumu güncellenirken bir hata oluştu:', error);
+                        });
+                }
+
+                // Işık durumunu dinleme fonksiyonu
+                function listenToLightStatus() {
+                    const lightRef = db.ref('lightStatus');
+                    lightRef.on('value', (snapshot) => {
+                        const status = snapshot.val();
+                        console.log('Işık durumu:', status);
+                        updateUI(status);
+                    });
+                }
+
+                // UI'yi güncelleme fonksiyonu
+                function updateUI(status) {
+                    const lightStatusElement = document.getElementById('lightStatus');
+                    lightStatusElement.textContent = `Işık durumu: ${status}`;
+                }
+
+                // Butonlara olay dinleyicileri ekleme
+                document.getElementById('turnOn').addEventListener('click', () => {
+                    updateLightStatus('on');
                 });
-        }
 
-        // Işık durumunu dinleme fonksiyonu
-        function listenToLightStatus() {
-            const lightRef = db.ref('lightStatus');
-            lightRef.on('value', (snapshot) => {
-                const status = snapshot.val();
-                console.log('Işık durumu:', status);
-                updateUI(status);
-            });
-        }
+                document.getElementById('turnOff').addEventListener('click', () => {
+                    updateLightStatus('off');
+                });
 
-        // UI'yi güncelleme fonksiyonu
-        function updateUI(status) {
-            const lightStatusElement = document.getElementById('lightStatus');
-            lightStatusElement.textContent = `Işık durumu: ${status}`;
-        }
-
-        // Butonlara olay dinleyicileri ekleme
-        document.getElementById('turnOn').addEventListener('click', () => {
-            updateLightStatus('on');
+                // Işık durumunu dinleme
+                listenToLightStatus();
+            } else {
+                console.log("Not authenticated");
+            }
         });
-
-        document.getElementById('turnOff').addEventListener('click', () => {
-            updateLightStatus('off');
-        });
-
-        // Işık durumunu dinleme
-        listenToLightStatus();
     </script>
 </body>
 </html>
