@@ -4,21 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Işık Kontrolü</title>
-    <script type="module" src="path/to/your/firebase-script.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Işık Kontrol Sistemi</h1>
     <button id="turnOn">Işığı Aç</button>
     <button id="turnOff">Işığı Kapat</button>
-    <script>
-        document.getElementById('turnOn').addEventListener('click', () => {
-            updateLightStatus('on');
-        });
-
-        document.getElementById('turnOff').addEventListener('click', () => {
-            updateLightStatus('off');
-        });
-
-        listenToLightStatus();
-    </script>
+    <p id="lightStatus">Işık durumu: Bilinmiyor</p>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="index.js" type="module"></script>
 </body>
 </html>
