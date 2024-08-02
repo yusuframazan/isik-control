@@ -36,12 +36,11 @@ function listenToLightStatus() {
   onValue(lightRef, (snapshot) => {
     const status = snapshot.val();
     console.log('Işık durumu:', status);
-    // UI'yi güncellemek için bir işlev çağırabilirsiniz
     updateUI(status);
   });
 }
 
-// UI'yi güncelleme fonksiyonu (örnek)
+// UI'yi güncelleme fonksiyonu
 function updateUI(status) {
   const lightStatusElement = document.getElementById('lightStatus');
   lightStatusElement.textContent = `Işık durumu: ${status}`;
