@@ -1,4 +1,4 @@
-// Firebase SDK'sını ve gerekli modülleri import etme
+// Firebase SDK'sını ve gerekli modülleri import etm
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 
