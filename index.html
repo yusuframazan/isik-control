@@ -3,63 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Light Control</title>
-    <!-- Firebase App (required) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
-    <!-- Firebase Database (required) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js"></script>
+    <title>Işık Kontrolü</title>
+    <script type="module" src="path/to/your/firebase-script.js"></script>
 </head>
 <body>
-    <h1>Light Control</h1>
-    <div>
-        <button id="lightOn">Turn On</button>
-        <button id="lightOff">Turn Off</button>
-    </div>
+    <button id="turnOn">Işığı Aç</button>
+    <button id="turnOff">Işığı Kapat</button>
     <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDB24ndSkGlaz9pvGjRuBEHzHaNH5uh7rk",
-            authDomain: "isik-kontrol-a0a97.firebaseapp.com",
-            databaseURL: "https://isik-kontrol-a0a97-default-rtdb.firebaseio.com",
-            projectId: "isik-kontrol-a0a97",
-            storageBucket: "isik-kontrol-a0a97.appspot.com",
-            messagingSenderId: "86535051838",
-            appId: "1:86535051838:web:f8d8af1aded74f9b988f6f",
-            measurementId: "G-06S1SL5GH7"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        const SECRET_KEY = "YOUR_SECRET_KEY";
-
-        // Turn light on
-        document.getElementById('lightOn').addEventListener('click', function() {
-            database.ref('/lightStatus').set(SECRET_KEY)
-            .then(() => {
-                console.log("Light turned on.");
-            }).catch((error) => {
-                console.error("Error turning light on: ", error);
-            });
+        document.getElementById('turnOn').addEventListener('click', () => {
+            updateLightStatus('on');
         });
 
-        // Turn light off
-        document.getElementById('lightOff').addEventListener('click', function() {
-            database.ref('/lightStatus').set("")
-            .then(() => {
-                console.log("Light turned off.");
-            }).catch((error) => {
-                console.error("Error turning light off: ", error);
-            });
+        document.getElementById('turnOff').addEventListener('click', () => {
+            updateLightStatus('off');
         });
 
-        // Monitor light status
-        const lightStatusRef = database.ref('/lightStatus');
-        lightStatusRef.on('value', (snapshot) => {
-            const status = snapshot.val();
-            console.log("Light status: ", status);
-        });
+        listenToLightStatus();
     </script>
 </body>
 </html>
