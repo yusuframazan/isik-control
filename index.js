@@ -1,8 +1,6 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDB24ndSkGlaz9pvGjRuBEHzHaNH5uh7rk",
     authDomain: "isik-kontrol-a0a97.firebaseapp.com",
@@ -22,12 +20,20 @@ const SECRET_KEY = "YOUR_SECRET_KEY";
 
 // Turn light on
 document.getElementById('lightOn').addEventListener('click', function() {
-    set(ref(database, '/lightStatus'), SECRET_KEY);
+    set(ref(database, '/lightStatus'), SECRET_KEY).then(() => {
+        console.log("Light turned on.");
+    }).catch((error) => {
+        console.error("Error turning light on: ", error);
+    });
 });
 
 // Turn light off
 document.getElementById('lightOff').addEventListener('click', function() {
-    set(ref(database, '/lightStatus'), "");
+    set(ref(database, '/lightStatus'), "").then(() => {
+        console.log("Light turned off.");
+    }).catch((error) => {
+        console.error("Error turning light off: ", error);
+    });
 });
 
 // Monitor light status
