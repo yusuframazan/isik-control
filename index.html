@@ -10,13 +10,11 @@
             text-align: center;
             padding: 20px;
         }
-
         button {
             margin: 10px;
             padding: 10px 20px;
             font-size: 16px;
         }
-
         #lightStatus {
             font-size: 20px;
             margin-top: 20px;
@@ -32,14 +30,10 @@
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
 
-    <!-- Add Firebase products that you want to us -->
+    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
-    <script type="module">
-        // Firebase SDK'sını ve gerekli modülleri import etme
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+    <script>
         // Firebase yapılandırma bilgileri
         const firebaseConfig = {
             apiKey: "AIzaSyDB24ndSkGlaz9pvGjRuBEHzHaNH5uh7rk",
@@ -53,13 +47,13 @@
         };
 
         // Firebase'i başlatma
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         // Işık durumunu güncelleme fonksiyonu
         function updateLightStatus(status) {
-            const lightRef = ref(db, 'lightStatus');
-            set(lightRef, status)
+            const lightRef = db.ref('lightStatus');
+            lightRef.set(status)
                 .then(() => {
                     console.log('Işık durumu güncellendi:', status);
                 })
@@ -70,8 +64,8 @@
 
         // Işık durumunu dinleme fonksiyonu
         function listenToLightStatus() {
-            const lightRef = ref(db, 'lightStatus');
-            onValue(lightRef, (snapshot) => {
+            const lightRef = db.ref('lightStatus');
+            lightRef.on('value', (snapshot) => {
                 const status = snapshot.val();
                 console.log('Işık durumu:', status);
                 updateUI(status);
