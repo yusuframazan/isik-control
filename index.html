@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Işık Kontrolü</title>
+  <title>Light Control</title>
   <script type="module">
-    // Firebase SDK'larını içe aktarın
+    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-    // Firebase yapılandırması
+    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDLyuomuSnuom0NQVMZtRet55MHqZMdB6Y",
       authDomain: "isik-kontrol-7e804.firebaseapp.com",
@@ -21,46 +21,25 @@
       measurementId: "G-RKR3WT430H"
     };
 
-    // Firebase'i başlatın
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
 
-    // Veri referansı
-    const lightRef = ref(database, 'lightStatus');
+    function toggleLight(status) {
+      set(ref(database, 'lightStatus'), status);
+    }
 
-    // Butonun durumunu güncelleme işlevi
-    const updateLightStatus = (status) => {
-      set(lightRef, status)
-        .then(() => {
-          console.log(`Light turned ${status ? 'on' : 'off'}`);
-        })
-        .catch((error) => {
-          console.error("Error updating light status:", error);
-        });
-    };
+    function setupEventListeners() {
+      document.getElementById('onButton').addEventListener('click', () => toggleLight('on'));
+      document.getElementById('offButton').addEventListener('click', () => toggleLight('off'));
+    }
 
-    // Butona tıklama işlevi
-    const toggleLight = () => {
-      onValue(lightRef, (snapshot) => {
-        const currentStatus = snapshot.val();
-        updateLightStatus(!currentStatus);
-      });
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('toggleButton').addEventListener('click', toggleLight);
-
-      // Başlangıçta ışığın durumunu al
-      onValue(lightRef, (snapshot) => {
-        const status = snapshot.val();
-        document.getElementById('status').textContent = status ? 'Işık Açık' : 'Işık Kapalı';
-      });
-    });
+    document.addEventListener('DOMContentLoaded', setupEventListeners);
   </script>
 </head>
 <body>
-  <h1>Işık Kontrolü</h1>
-  <p>Durum: <span id="status">Yükleniyor...</span></p>
-  <button id="toggleButton">Işığı Aç/Kapa</button>
+  <h1>Light Control</h1>
+  <button id="onButton">Turn On</button>
+  <button id="offButton">Turn Off</button>
 </body>
 </html>
