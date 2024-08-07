@@ -93,8 +93,9 @@ h2 {
   font-weight: bold;
 }
 
-/* Saati Kaydet butonunu alt kısma almak için ayar */
+/* Saati Kaydet ve Saatleri Temizle butonlarını ortalamak için ayar */
 .settings button {
   display: block;
-  margin-top: 10px;
+  margin: 10px auto; /* Butonları ortalar */
+  width: 200px; /* Buton genişliği */
 }
