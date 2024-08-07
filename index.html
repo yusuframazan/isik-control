@@ -9,21 +9,20 @@
 </head>
 <body>
   <h1>Işık Kontrol</h1>
-  <button id="onButton">Işığı Aç</button>
-  <button id="offButton">Işığı Kapat</button>
+  <div class="control-buttons">
+    <button id="onButton" class="button green">Işığı Aç</button>
+    <button id="offButton" class="button red">Işığı Kapat</button>
+  </div>
   <p id="status">Durum bilinmiyor</p>
 
-  <div>
+  <div class="settings">
     <h2>Otomatik Işık Ayarı</h2>
     <label for="startTime">Başlangıç saati:</label>
     <input type="time" id="startTime">
     <label for="endTime">Bitiş saati:</label>
     <input type="time" id="endTime">
-  </div>
-
-  <div class="button-container">
-    <button id="saveTimeButton">Saatleri Kaydet</button>
-    <button id="clearTimeButton">Saatleri Temizle</button>
+    <button id="saveTimeButton" class="button blue">Saatleri Kaydet</button>
+    <button id="clearTimeButton" class="button gray">Saatleri Temizle</button>
   </div>
 </body>
 </html>
