@@ -3,20 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Işık Kontrolü</title>
+  <title>Işık Kontrol</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Işık Kontrolü</h1>
-    <div class="status-container">
-      <p id="status">Işık kapalı</p>
-    </div>
-    <div class="button-container">
-      <button id="onButton" class="btn btn-on">Aç</button>
-      <button id="offButton" class="btn btn-off">Kapat</button>
-    </div>
+  <h1>Işık Kontrol</h1>
+  <div class="control-buttons">
+    <button id="onButton" class="button green">Işığı Aç</button>
+    <button id="offButton" class="button red">Işığı Kapat</button>
   </div>
-  <script type="module" src="script.js"></script>
+  <p id="status">Durum bilinmiyor</p>
+
+  <div class="settings">
+    <h2>Otomatik Işık Ayarı</h2>
+    <label for="startTime">Başlangıç saati:</label>
+    <input type="time" id="startTime">
+    <label for="endTime">Bitiş saati:</label>
+    <input type="time" id="endTime">
+    <button id="saveTimeButton" class="button blue">Saati Kaydet</button>
+    <button id="clearTimeButton" class="button gray">Saatleri Temizle</button>
+  </div>
 </body>
 </html>
