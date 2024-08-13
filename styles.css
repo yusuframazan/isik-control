@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-  color: #4CAF50;
+  color: #555;
   margin-bottom: 20px;
 }
 
@@ -21,6 +21,48 @@ h2 {
   color: #555;
 }
 
+#lightControl {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  position: relative;
+  z-index: 10;
+}
+
+#lightControl img {
+  width: 100px; /* Fotoğrafın genişliği */
+  height: 100px; /* Fotoğrafın yüksekliği */
+  object-fit: contain; /* Resmi kapsayıcıya orantılı şekilde yerleştirir */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Geçiş süresini uzat */
+  pointer-events: auto;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* Işık Kontrol Butonları */
 .control-buttons {
   display: flex;
   gap: 10px;
@@ -31,7 +73,7 @@ h2 {
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Gölgeyi güçlendirdik */
   text-align: center;
 }
 
@@ -42,8 +84,8 @@ h2 {
 }
 
 .settings input[type="time"] {
-  padding: 10px;
-  font-size: 16px;
+  padding: 8px; /* Küçültülmüş padding */
+  font-size: 14px; /* Küçültülmüş font boyutu */
   border: 1px solid #ddd;
   border-radius: 5px;
   margin: 5px 10px;
@@ -64,7 +106,8 @@ h2 {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Gölgeyi güçlendirdik */
 }
 
 .button:hover {
@@ -97,5 +140,80 @@ h2 {
 .settings button {
   display: block;
   margin: 10px auto; /* Butonları ortalar */
-  width: 200px; /* Buton genişliği */
+  width: 180px; /* Buton genişliği */
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  #lightControl {
+    margin-top: 20px;
+  }
+
+  #lightControl img {
+    width: 80px; /* Fotoğrafın küçük ekranlarda genişliği */
+    height: 80px; /* Yükseklik ayarı */
+  }
+
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .control-buttons button {
+    margin: 5px 0;
+  }
+
+  .settings {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .settings input[type="time"] {
+    width: calc(100% - 22px); /* %100 genişlik, kenar boşluklarını çıkart */
+    margin: 5px 0;
+  }
+
+  .settings button {
+    width: 100%; /* Buton genişliğini %100 yap */
+    max-width: 280px; /* Maksimum genişlik */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 24px; /* Başlık font boyutunu küçült */
+  }
+
+  #status {
+    font-size: 16px; /* Durum yazısı font boyutunu küçült */
+  }
+
+  .settings input[type="time"] {
+    font-size: 12px; /* Zaman input font boyutunu küçült */
+  }
+
+  .settings button {
+    font-size: 12px; /* Buton font boyutunu küçült */
+    padding: 6px 12px; /* Küçültülmüş padding */
+  }
+}
+
+/* Açıklayıcı Bilgi Stili */
+.help-text {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Gölgeyi güçlendirdik */
+  margin: 20px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Işık Görselinin Animasyonu */
+#lightControl img.on {
+  animation: fadeIn 0.5s ease;
+}
+
+#lightControl img.off {
+  animation: fadeOut 0.5s ease;
 }
