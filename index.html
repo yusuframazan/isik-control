@@ -4,27 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Işık Kontrol</title>
-   <link rel="website icon"type="png"
-href="images/isik.png">
+  <link rel="icon" type="image/png" href="images/isik1.png">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="script.js" defer></script>
 </head>
 <body>
   <h1>Işık Kontrol</h1>
-  <div class="control-buttons">
-    <button id="onButton" class="button green">Işığı Aç</button>
-    <button id="offButton" class="button red">Işığı Kapat</button>
+  
+  <div id="lightControl">
+    <img id="lightImage" src="images/kapali2.png" alt="Işık Kontrol" aria-label="Işık kontrol">
   </div>
+  
   <p id="status">Durum bilinmiyor</p>
 
   <div class="settings">
     <h2>Otomatik Işık Ayarı</h2>
+    
+    <label for="day">Gün:</label>
+    <select id="day" aria-required="true">
+      <option value="sunday">Pazar</option>
+      <option value="monday">Pazartesi</option>
+      <option value="tuesday">Salı</option>
+      <option value="wednesday">Çarşamba</option>
+      <option value="thursday">Perşembe</option>
+      <option value="friday">Cuma</option>
+      <option value="saturday">Cumartesi</option>
+    </select>
+
     <label for="startTime">Başlangıç saati:</label>
-    <input type="time" id="startTime">
+    <input type="time" id="startTime" aria-required="true">
+    
     <label for="endTime">Bitiş saati:</label>
-    <input type="time" id="endTime">
-    <button id="saveTimeButton" class="button blue">Saatleri Kaydet</button>
-    <button id="clearTimeButton" class="button gray">Saatleri Temizle</button>
+    <input type="time" id="endTime" aria-required="true">
+    
+    <button id="saveTimeButton" class="button blue" aria-label="Saatleri kaydet">Saatleri Kaydet</button>
+    <button id="clearTimeButton" class="button gray" aria-label="Saatleri temizle">Saatleri Temizle</button>
   </div>
 </body>
 </html>
